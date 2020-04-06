@@ -1,12 +1,20 @@
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
   students = []
-  name = gets.chomp
+  puts "Enter name of student you would like to add"
+  name = gets.chomp.capitalize
   while !name.empty? do
-    students << {name: name, cohort: :november}
+    puts "What is #{name}'s favourite hobbie?"
+    hobbie = gets.chomp.capitalize
+    puts "What is #{name}'s date of birth?"
+    dob = gets.chomp.capitalize
+    puts "What is #{name}'s height?"
+    height = gets.chomp.capitalize
+    students << {name: name, cohort: :November, hobbie: hobbie, date_of_birth: dob,
+    height: height}
     puts "Now we have #{students.count} students"
-    name = gets.chomp
+    puts "If you have finished, just hit return twice"
+    puts "Enter another students name"
+    name = gets.chomp.capitalize
   end
   students
 end
@@ -20,7 +28,8 @@ def print(students)
   until count == 0 do
     students.each.with_index(1) do |student, index|
       if student[:name].length < 12
-        puts "#{index} #{student[:name]} (#{student[:cohort]} cohort)"
+        puts "#{index} #{student[:name]} (#{student[:cohort]} Cohort, #{student[:hobbie]} Hobbie,
+        #{student[:date_of_birth]} DOB, #{student[:height]} Height)"
         count -= 1
       end
     end
