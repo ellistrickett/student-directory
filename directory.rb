@@ -28,7 +28,11 @@ def input_students
     height = gets.chomp.capitalize
     students << {name: name.to_sym, cohort: cohort.to_sym,
     hobbie: hobbie.to_sym, date_of_birth: dob.to_sym, height: height.to_sym}
-    my_puts "Now we have #{students.count} students"
+    if students.count == 1
+      my_puts "Now we have 1 student"
+    else
+      my_puts "Now we have #{students.count} students"
+    end
     my_puts "If you have finished, just hit return twice"
     my_puts "Enter another students name"
     name = gets.chomp.capitalize
