@@ -5,7 +5,7 @@ end
 def input_students
   students = []
   my_puts "Enter name of student you would like to add"
-  name = gets.chomp.capitalize
+  name = gets.tr("\n\r", "").capitalize
   while !name.empty? do
     while true do
     my_puts "What cohort is #{name} in? If #{name} does not have one yet, just press return..."
