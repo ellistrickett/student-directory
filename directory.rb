@@ -41,13 +41,12 @@ def print_header
   my_puts "-------------"
 end
 def print(students)
-  count = students.length
-  until count == 0 do
-    students.each.with_index(1) do |student, index|
-      if student[:name].length < 12
-        my_puts "#{index}. #{student[:name]} (#{student[:cohort]} Cohort, #{student[:hobbie]} Hobbie, #{student[:date_of_birth]} DOB, #{student[:height]} Height)"
-        count -= 1
-      end
+  cohorts = []
+  students.each {|student| cohorts.push(student[:cohort])}
+  cohorts.uniq.each do |cohort|
+    my_puts "Cohort: #{cohort}"
+    students.map.with_index(1) do |student, index|
+      my_puts "#{index}. #{student[:name]} (#{student[:hobbie]} Hobbie, #{student[:date_of_birth]} DOB, #{student[:height]} Height)" if student [:cohort] == cohort
     end
   end
 end
