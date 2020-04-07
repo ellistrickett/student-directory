@@ -48,16 +48,22 @@ def print(students)
   cohorts = []
   students.each {|student| cohorts.push(student[:cohort])}
   cohorts.uniq.each do |cohort|
-    my_puts "Cohort: #{cohort}"
-    students.map.with_index(1) do |student, index|
-      my_puts "#{index}. #{student[:name]} (#{student[:hobbie]} Hobbie, #{student[:date_of_birth]} DOB, #{student[:height]} Height)" if student [:cohort] == cohort
+  my_puts "Cohort: #{cohort}"
+  students.map.with_index(1) do |student, index|
+    my_puts "#{index}. #{student[:name]} (#{student[:hobbie]} Hobbie, #{student[:date_of_birth]} DOB, #{student[:height]} Height)" if student [:cohort] == cohort
     end
   end
 end
+
 def print_footer(names)
   my_puts "Overall, we have #{names.count} great students"
 end
+
 students = input_students
-print_header
-print(students)
-print_footer(students)
+if students.length > 0
+  print_header
+  print(students)
+  print_footer(students)
+else
+  my_puts "There is currently no students at Villains Academy"
+end
