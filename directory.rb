@@ -8,20 +8,22 @@ end
 
 def try_load_students
   filename = ARGV.first
-  return if filename.nikl?
-  if File.exists?(filename)
-    load_students(filename)
-    puts "Loaded #{students.count} from #{filename}"
+  if filename.nil?
+    load_student
+    my_puts "Loaded default students list 'students.csv'"
+  elsif File.exists?(filename)
+    load_student(filename)
+    my_puts "Loaded #{students.count} from #{filename}"
   else
-    puts "Sorry #{filename} doesn't exist."
-    exit
+    my_puts "Sorry #{filename} doesn't exist. Loading the default students.csv instead"
+    load_student
   end
 end
 
 def load_student(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-  name, cohort, hobbie, date_of_birth, height = line.chomp.split(',')
+  name, cohort, hobbie, dob, height = line.chomp.split(',')
     add_students_to_array(name, cohort, hobbie, dob, height)
   end
   file.close
@@ -140,4 +142,5 @@ def print_footer
   my_puts "Overall, we have #{@students.count} great students"
 end
 
+try_load_students
 interactive_menu
