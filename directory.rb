@@ -1,7 +1,19 @@
 @students =  []
 
-def load_student
-  file = File.open("students.csv", "r")
+def try_load_students
+  filename = ARGV.first
+  return if filename.nikl?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{students.count} from #{filename}"
+  else
+    puts "Sorry #{filename} doesn't exist."
+    exit
+  end
+end
+
+def load_student(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort, hobbie, date_of_birth, height = line.chomp.split(',')
     @students << {name: name, cohort: cohort, hobbie: hobbie, date_of_birth: date_of_birth, height: height}
@@ -24,7 +36,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -69,11 +81,11 @@ end
 
 def input_students
   my_puts "Enter name of student you would like to add"
-  name = gets.tr("\n\r", "").capitalize
+  name = STDIN.gets.chomp.capitalize
   while !name.empty? do
     while true do
     my_puts "What cohort is #{name} in? If #{name} does not have one yet, just press return..."
-    cohort = gets.chomp.capitalize
+    cohort = STDIN.gets.chomp.capitalize
     if cohort == nil
       cohort = "N/A"
       break
@@ -85,11 +97,11 @@ def input_students
     end
   end
     my_puts "What is #{name}'s favourite hobbie?"
-    hobbie = gets.chomp.capitalize
+    hobbie = STDIN.gets.chomp.capitalize
     my_puts "What is #{name}'s date of birth?"
-    dob = gets.chomp.capitalize
+    dob = STDIN.gets.chomp.capitalize
     my_puts "What is #{name}'s height?"
-    height = gets.chomp.capitalize
+    height = STDIN.gets.chomp.capitalize
     @students << {name: name.to_sym, cohort: cohort.to_sym,
     hobbie: hobbie.to_sym, date_of_birth: dob.to_sym, height: height.to_sym}
     if @students.count == 1
@@ -99,7 +111,7 @@ def input_students
     end
     my_puts "If you have finished, just hit return twice"
     my_puts "Enter another students name"
-    name = gets.chomp.capitalize
+    name = STDIN.gets.chomp.capitalize
   end
   @students
 end
