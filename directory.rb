@@ -1,5 +1,11 @@
 @students =  []
 
+def add_students_to_array(name, cohort, hobbie, dob, height)
+  @students << {name: name.to_sym, cohort: cohort.to_sym,
+  hobbie: hobbie.to_sym, date_of_birth: dob.to_sym, height: height.to_sym}
+end
+
+
 def try_load_students
   filename = ARGV.first
   return if filename.nikl?
@@ -16,7 +22,7 @@ def load_student(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort, hobbie, date_of_birth, height = line.chomp.split(',')
-    @students << {name: name, cohort: cohort, hobbie: hobbie, date_of_birth: date_of_birth, height: height}
+    add_students_to_array(name, cohort, hobbie, dob, height)
   end
   file.close
 end
@@ -102,8 +108,7 @@ def input_students
     dob = STDIN.gets.chomp.capitalize
     my_puts "What is #{name}'s height?"
     height = STDIN.gets.chomp.capitalize
-    @students << {name: name.to_sym, cohort: cohort.to_sym,
-    hobbie: hobbie.to_sym, date_of_birth: dob.to_sym, height: height.to_sym}
+    add_students_to_array(name, cohort, hobbie, dob, height)
     if @students.count == 1
       my_puts "Now we have 1 student"
     else
