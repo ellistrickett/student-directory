@@ -21,9 +21,13 @@ def process(selection)
   end
 
 def show_students
-  print_header
-  print_students_list
-  print_footer
+  if @students.length > 0
+    print_header
+    print_students_list
+    print_footer
+  else
+    my_puts "There is currently no students at Villains Academy"
+  end
 end
 
 def print_menu
@@ -93,8 +97,3 @@ def print_footer
 end
 
 interactive_menu
-if @students.length > 0
-  show_students
-else
-  my_puts "There is currently no students at Villains Academy"
-end
