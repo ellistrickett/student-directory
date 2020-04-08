@@ -8,7 +8,6 @@ def add_students_to_array(name, cohort, hobbie, dob, height)
   hobbie: hobbie.to_sym, date_of_birth: dob.to_sym, height: height.to_sym}
 end
 
-
 def try_load_students
   filename = ARGV.first
   if filename.nil?
@@ -90,16 +89,20 @@ def my_puts(str)
   puts str.center(72)
 end
 
+def my_gets
+  STDIN.gets.chomp.capitalize
+end
+
 def input_students
   my_puts "Enter name of student you would like to add"
-  @name = STDIN.gets.chomp.capitalize
+  @name = my_gets
   while !@name.empty? do
     what_cohort
     questions
     count_students
     my_puts "If you have finished, just hit return twice"
     my_puts "Enter another students name"
-    @name = STDIN.gets.chomp.capitalize
+    @name = my_gets
   end
   @students
 end
@@ -114,11 +117,11 @@ end
 
 def questions
   my_puts "What is #{@name}'s favourite hobbie?"
-  @hobbie = STDIN.gets.chomp.capitalize
+  @hobbie = my_gets
   my_puts "What is #{@name}'s date of birth?"
-  @dob = STDIN.gets.chomp.capitalize
+  @dob = my_gets
   my_puts "What is #{@name}'s height?"
-  @height = STDIN.gets.chomp.capitalize
+  @height = my_gets
   add_students_to_array(@name, @cohort, @hobbie, @dob, @height)
 end
 
