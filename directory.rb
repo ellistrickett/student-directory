@@ -11,19 +11,16 @@ end
 def try_load_students
   filename = ARGV.first
   if filename.nil?
-    load_student
+    filename = "students.csv"
+    load_student(filename)
     my_puts "Loaded default students list 'students.csv'"
   elsif File.exists?(filename)
     load_student(filename)
     my_puts "Loaded #{students.count} from #{filename}"
-  else
-    my_puts "Sorry #{filename} doesn't exist. Loading the default \
-students.csv instead"
-    load_student
   end
 end
 
-def load_student(filename = "students.csv")
+def load_student(filename)
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort, hobbie, dob, height = line.chomp.split(',')
@@ -32,8 +29,8 @@ def load_student(filename = "students.csv")
   file.close
 end
 
-def save_students
-  file = File.open("students.csv", "w")
+def save_students(savefilename)
+  file = File.open(savefilename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort], student[:hobbie],
     student[:date_of_birth], student[:height]]
@@ -41,6 +38,60 @@ def save_students
     file.puts csv_line
   end
   file.close
+end
+
+def save_to_new_file
+  while true do
+    my_puts "Please enter the new name you would like to save the file to \
+or hit return to go back to the menu"
+    newfile = STDIN.gets.chomp
+    if newfile.empty?
+      break
+    elsif newfile.split(//).last(4).join != ".csv"
+      my_puts "Make sure it ends with '.csv'"
+    else
+      save_students(newfile)
+      my_puts "Created a new file #{newfile} and saved the student list to it"
+      break
+    end
+  end
+end
+
+def save_to_existing_file
+  while true do
+    my_puts "Please enter a a valid file name to save the list too or hit \
+return to go back to menu"
+  savefilename = STDIN.gets.chomp
+  if savefilename.empty?
+    break
+  elsif savefilename.split(//).last(4).join != ".csv"
+    my_puts "Make sure it ends with '.csv'"
+  elsif !File.exists?(savefilename)
+    my_puts "That file does not exist, try again..."
+  else
+    save_students(savefilename)
+    my_puts "Saved student list to #{savefilename}"
+    break
+    end
+  end
+end
+
+def enter_file_to_load
+  while true do
+  my_puts "Please enter a filename to load or hit return to go back to menu"
+  filename = STDIN.gets.chomp
+  if filename.empty?
+    break
+  elsif savefilename.split(//).last(4).join != ".csv"
+    my_puts "Make sure it ends with '.csv'"
+  elsif !File.exists?(filename)
+    my_puts "That file does not exist, please try again."
+  else
+    load_student(filename)
+    my_puts "Loaded #{filename} student list"
+    break
+    end
+  end
 end
 
 def interactive_menu
@@ -60,10 +111,13 @@ def process(selection)
       show_students
     when "3"
       my_puts "You have successfully chosen option 3"
-      save_students
+      save_to_existing_file
     when "4"
       my_puts "You have successfully chosen option 4"
-      load_student
+      save_to_new_file
+    when "5"
+      my_puts "You have successfully chosen option 5"
+      enter_file_to_load
     when "9"
       my_puts "You have successfully chosen option 9"
       exit
@@ -86,8 +140,9 @@ def print_menu
   my_puts ""
   my_puts "1. Input the students"
   my_puts "2. Show the students"
-  my_puts "3. Save the list to students.csv"
-  my_puts "4. Load the list from students.csv"
+  my_puts "3. Save list to an existing file"
+  my_puts "4. Save list to a new file"
+  my_puts "5. Load a list from folder"
   my_puts "9. Exit"
   my_puts ""
 end
