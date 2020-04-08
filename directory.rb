@@ -53,17 +53,22 @@ end
 def process(selection)
   case selection
     when "1"
+      my_puts "You have successfully chosen option 1"
       input_students
     when "2"
+      my_puts "You have successfully chosen option 2"
       show_students
     when "3"
+      my_puts "You have successfully chosen option 3"
       save_students
     when "4"
+      my_puts "You have successfully chosen option 4"
       load_student
     when "9"
+      my_puts "You have successfully chosen option 9"
       exit
     else
-      puts "I don't know what you meant, try again"
+      my_puts "I don't know what you meant, try again"
     end
   end
 
@@ -78,11 +83,13 @@ def show_students
 end
 
 def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit"
+  my_puts ""
+  my_puts "1. Input the students"
+  my_puts "2. Show the students"
+  my_puts "3. Save the list to students.csv"
+  my_puts "4. Load the list from students.csv"
+  my_puts "9. Exit"
+  my_puts ""
 end
 
 def my_puts(str)
