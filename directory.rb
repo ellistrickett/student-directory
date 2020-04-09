@@ -21,23 +21,23 @@ def try_load_students
 end
 
 def load_student(filename)
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort, hobbie, dob, height = line.chomp.split(',')
-  add_students_to_array(name, cohort, hobbie, dob, height)
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort, hobbie, dob, height = line.chomp.split(',')
+      add_students_to_array(name, cohort, hobbie, dob, height)
+    end
   end
-  file.close
 end
 
 def save_students(savefilename)
-  file = File.open(savefilename, "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort], student[:hobbie],
-    student[:date_of_birth], student[:height]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  File.open(savefilename, "w") do |file|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort], student[:hobbie],
+      student[:date_of_birth], student[:height]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
 end
 
 def save_to_new_file
@@ -82,7 +82,7 @@ def enter_file_to_load
   filename = STDIN.gets.chomp
   if filename.empty?
     break
-  elsif savefilename.split(//).last(4).join != ".csv"
+  elsif filename.split(//).last(4).join != ".csv"
     my_puts "Make sure it ends with '.csv'"
   elsif !File.exists?(filename)
     my_puts "That file does not exist, please try again."
