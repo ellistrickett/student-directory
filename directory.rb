@@ -60,7 +60,7 @@ end
 def save_to_existing_file
   while true do
     my_puts "Please enter a a valid file name to save the list too or hit \
-return to go back to menu"
+return to go back to the menu"
   savefilename = STDIN.gets.chomp
   if savefilename.empty?
     break
@@ -82,8 +82,6 @@ def enter_file_to_load
   filename = STDIN.gets.chomp
   if filename.empty?
     break
-  elsif filename.split(//).last(4).join != ".csv"
-    my_puts "Make sure it ends with '.csv'"
   elsif !File.exists?(filename)
     my_puts "That file does not exist, please try again."
   else
@@ -212,8 +210,8 @@ def print_students_list
   cohorts.uniq.each do |cohort|
   my_puts "Cohort: #{cohort}"
   @students.map.with_index(1) do |student, index|
-    my_puts "#{index}. #{student[:name]} (#{student[:hobbie]} \
-Hobbie, #{student[:date_of_birth]} DOB, #{student[:height]} Height)" \
+    my_puts "#{index}. #{student[:name]} (Hobbie - #{student[:hobbie]}\
+, DOB - #{student[:date_of_birth]}, Height - #{student[:height]})" \
 if student [:cohort] == cohort
     end
   end
